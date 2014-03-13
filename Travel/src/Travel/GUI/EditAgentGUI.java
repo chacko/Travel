@@ -80,6 +80,7 @@ public class EditAgentGUI extends javax.swing.JDialog {
 		try {
 			{
 				getContentPane().setLayout(null);
+				this.setModal(true);
 				{
 					pnlEditAgent = new JPanel();
 					getContentPane().add(pnlEditAgent);
