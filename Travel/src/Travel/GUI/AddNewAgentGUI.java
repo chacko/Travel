@@ -28,6 +28,7 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JLabel jLabel5;
+	private JButton btnExit;
 	private JLabel jLabel9;
 	private JPanel pnlAddAgent;
 	private JButton btnReset;
@@ -75,7 +76,7 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 					btnSave = new JButton();
 					getContentPane().add(btnSave);
 					btnSave.setText("Save");
-					btnSave.setBounds(128, 266, 100, 36);
+					btnSave.setBounds(345, 138, 100, 36);
 					btnSave.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnSave.mouseClicked, event="+evt);
@@ -88,7 +89,7 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 					btnReset = new JButton();
 					getContentPane().add(btnReset);
 					btnReset.setText("Reset");
-					btnReset.setBounds(233, 266, 100, 36);
+					btnReset.setBounds(345, 179, 100, 36);
 					btnReset.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnReset.mouseClicked, event="+evt);
@@ -219,8 +220,21 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 						jLabel9.setHorizontalTextPosition(SwingConstants.CENTER);
 					}
 				}
+				{
+					btnExit = new JButton();
+					getContentPane().add(btnExit);
+					btnExit.setText("Exit");
+					btnExit.setBounds(345, 220, 100, 36);
+					btnExit.addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent evt) {
+							//System.out.println("btnReset.mouseClicked, event="+evt);
+							//TODO add your code for btnReset.mouseClicked
+							setVisible(false);
+						}
+					});
+				}
 			}
-			this.setSize(357, 343);
+			this.setSize(463, 297);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

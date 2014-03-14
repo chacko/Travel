@@ -1,8 +1,11 @@
 package Travel.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -16,8 +19,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
+import org.jdesktop.swingx.autocomplete.*;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -33,10 +38,12 @@ import javax.swing.border.LineBorder;
 */
 public class AgentGUI extends javax.swing.JDialog {
 	private JList lstAgent;
-	private JTextField txtSearchAgent;
 	private JButton btnAdd;
-	private JButton btnEdit;
+	private JButton jButton1;
+	private JTextField txtSearchAgent;
 	private JLabel jLabel1;
+	private JButton btnExit;
+	private JButton btnEdit;
 
 	/**
 	* Auto-generated main method to display this JDialog
@@ -61,31 +68,24 @@ public class AgentGUI extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				{
-					jLabel1 = new JLabel();
-					getContentPane().add(jLabel1);
-					jLabel1.setText("Search Agent:");
-					jLabel1.setBounds(12, 21, 122, 15);
-				}
-				{
-					txtSearchAgent = new JTextField();
-					getContentPane().add(txtSearchAgent);
-					txtSearchAgent.setBounds(133, 18, 182, 22);
-				}
-				{
-					ListModel lstAgentModel = 
-							new DefaultComboBoxModel(
-									new String[] { "Item One", "Item Two" });
-					lstAgent = new JList();
+					ArrayList<String> agents = new ArrayList<>();
+					agents.add("1");
+					agents.add("2");
+					agents.add("3");
+					agents.add("4");
+					agents.add("5");
+					
+					lstAgent = new JList(agents.toArray());
 					getContentPane().add(lstAgent);
-					lstAgent.setModel(lstAgentModel);
 					lstAgent.setBounds(12, 48, 303, 269);
 					lstAgent.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
+					lstAgent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				}
 				{
 					btnAdd = new JButton();
 					getContentPane().add(btnAdd);
 					btnAdd.setText("Add New Agent");
-					btnAdd.setBounds(327, 248, 143, 32);
+					btnAdd.setBounds(327, 162, 143, 32);
 					btnAdd.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							//System.out.println("btnAdd.actionPerformed, event="+evt);
@@ -100,7 +100,7 @@ public class AgentGUI extends javax.swing.JDialog {
 					btnEdit = new JButton();
 					getContentPane().add(btnEdit);
 					btnEdit.setText("Edit Agent");
-					btnEdit.setBounds(327, 285, 143, 32);
+					btnEdit.setBounds(327, 202, 143, 32);
 					btnEdit.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							//System.out.println("btnEdit.actionPerformed, event="+evt);
@@ -110,6 +110,48 @@ public class AgentGUI extends javax.swing.JDialog {
 							}
 						}
 					});
+				}
+				{
+					jButton1 = new JButton();
+					getContentPane().add(jButton1);
+					jButton1.setText("Delete Agent");
+					jButton1.setBounds(327, 242, 143, 32);
+					jButton1.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							//System.out.println("btnAdd.actionPerformed, event="+evt);
+							//TODO add your code for btnAdd.actionPerformed
+							if(evt.getSource() == btnAdd){
+								AddNewAgentGUI.main(null);
+							}
+						}
+					});
+				}
+				{
+					btnExit = new JButton();
+					getContentPane().add(btnExit);
+					btnExit.setText("Exit");
+					btnExit.setBounds(327, 285, 143, 32);
+					btnExit.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							//System.out.println("btnAdd.actionPerformed, event="+evt);
+							//TODO add your code for btnAdd.actionPerformed
+							System.exit(0);
+						}
+					});
+				}
+				{
+					jLabel1 = new JLabel();
+					getContentPane().add(jLabel1);
+					jLabel1.setText("Search Agent:");
+					jLabel1.setLayout(null);
+					jLabel1.setBounds(19, 21, 108, 15);
+				}
+				{
+					txtSearchAgent = new JTextField();
+					getContentPane().add(txtSearchAgent);
+					txtSearchAgent.setBounds(154, 18, 161, 22);
+					
+					Configurator.enableAutoCompletion(lstAgent, txtSearchAgent);
 				}
 			}
 			this.setSize(491, 370);

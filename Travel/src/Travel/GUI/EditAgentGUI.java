@@ -33,10 +33,8 @@ import javax.swing.border.LineBorder;
 */
 public class EditAgentGUI extends javax.swing.JDialog {
 	private JPanel pnlEditAgent;
+	private JButton btnExit;
 	private ButtonGroup btnStatus;
-	private JCheckBox chkNo;
-	private JCheckBox chkYes;
-	private JLabel jLabel1;
 	private JButton btnReset;
 	private JButton btnSave;
 	private JLabel jLabel18;
@@ -86,7 +84,7 @@ public class EditAgentGUI extends javax.swing.JDialog {
 					getContentPane().add(pnlEditAgent);
 					pnlEditAgent.setBorder(new LineBorder(new java.awt.Color(0,0,0),1,false));
 					pnlEditAgent.setLayout(null);
-					pnlEditAgent.setBounds(17, 11, 313, 287);
+					pnlEditAgent.setBounds(17, 11, 313, 238);
 					{
 						txtAgentId = new JTextField();
 						pnlEditAgent.add(txtAgentId);
@@ -189,35 +187,12 @@ public class EditAgentGUI extends javax.swing.JDialog {
 						jLabel18.setLayout(null);
 						jLabel18.setBounds(1, 2, 310, 29);
 					}
-					{
-						jLabel1 = new JLabel();
-						pnlEditAgent.add(jLabel1);
-						jLabel1.setText("Do you want to change agent's status?");
-						jLabel1.setLayout(null);
-						jLabel1.setBounds(13, 237, 285, 15);
-					}
-					{
-						chkYes = new JCheckBox();
-						pnlEditAgent.add(chkYes);
-						chkYes.setText("Yes");
-						chkYes.setLayout(null);
-						chkYes.setBounds(135, 258, 60, 19);
-						getBtnStatus().add(chkYes);
-					}
-					{
-						chkNo = new JCheckBox();
-						pnlEditAgent.add(chkNo);
-						chkNo.setText("No");
-						chkNo.setLayout(null);
-						chkNo.setBounds(200, 258, 64, 19);
-						getBtnStatus().add(chkNo);
-					}
 				}
 				{
 					btnSave = new JButton();
 					getContentPane().add(btnSave);
 					btnSave.setText("Save");
-					btnSave.setBounds(124, 304, 100, 36);
+					btnSave.setBounds(342, 128, 100, 36);
 					btnSave.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							//System.out.println("btnSave.actionPerformed, event="+evt);
@@ -235,8 +210,9 @@ public class EditAgentGUI extends javax.swing.JDialog {
 				{
 					btnReset = new JButton();
 					getContentPane().add(btnReset);
+					getContentPane().add(getJButton1());
 					btnReset.setText("Reset");
-					btnReset.setBounds(229, 304, 100, 36);
+					btnReset.setBounds(342, 169, 100, 36);
 					btnReset.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnReset.mouseClicked, event="+evt);
@@ -259,7 +235,7 @@ public class EditAgentGUI extends javax.swing.JDialog {
 					});
 				}
 			}
-			this.setSize(350, 375);
+			this.setSize(460, 290);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -270,6 +246,22 @@ public class EditAgentGUI extends javax.swing.JDialog {
 			btnStatus = new ButtonGroup();
 		}
 		return btnStatus;
+	}
+	
+	private JButton getJButton1() {
+		if(btnExit == null) {
+			btnExit = new JButton();
+			btnExit.setText("Exit");
+			btnExit.setBounds(342, 210, 100, 36);
+			btnExit.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent evt) {
+					//System.out.println("btnReset.mouseClicked, event="+evt);
+					//TODO add your code for btnReset.mouseClicked
+					setVisible(false);
+				}
+			});
+		}
+		return btnExit;
 	}
 
 }
