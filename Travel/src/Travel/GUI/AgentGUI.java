@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -22,6 +23,9 @@ import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import org.jdesktop.swingx.autocomplete.*;
 
 /**
@@ -39,7 +43,7 @@ import org.jdesktop.swingx.autocomplete.*;
 public class AgentGUI extends javax.swing.JDialog {
 	private JList lstAgent;
 	private JButton btnAdd;
-	private JButton jButton1;
+	private JButton btnDelete;
 	private JTextField txtSearchAgent;
 	private JLabel jLabel1;
 	private JButton btnExit;
@@ -80,6 +84,20 @@ public class AgentGUI extends javax.swing.JDialog {
 					lstAgent.setBounds(12, 48, 303, 269);
 					lstAgent.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 					lstAgent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					lstAgent.addListSelectionListener(new ListSelectionListener() {
+						public void valueChanged(ListSelectionEvent evt) {
+							//System.out.println("lstAgent.valueChanged, event="+evt);
+							//TODO add your code for lstAgent.valueChanged
+							if(lstAgent.isSelectionEmpty()){
+								btnEdit.setEnabled(false);
+								btnDelete.setEnabled(false);
+							}
+							else{
+								btnEdit.setEnabled(true);
+								btnDelete.setEnabled(true);
+							}
+						}
+					});
 				}
 				{
 					btnAdd = new JButton();
@@ -101,6 +119,7 @@ public class AgentGUI extends javax.swing.JDialog {
 					getContentPane().add(btnEdit);
 					btnEdit.setText("Edit Agent");
 					btnEdit.setBounds(327, 202, 143, 32);
+					btnEdit.setEnabled(false);
 					btnEdit.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							//System.out.println("btnEdit.actionPerformed, event="+evt);
@@ -112,16 +131,23 @@ public class AgentGUI extends javax.swing.JDialog {
 					});
 				}
 				{
-					jButton1 = new JButton();
-					getContentPane().add(jButton1);
-					jButton1.setText("Delete Agent");
-					jButton1.setBounds(327, 242, 143, 32);
-					jButton1.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							//System.out.println("btnAdd.actionPerformed, event="+evt);
-							//TODO add your code for btnAdd.actionPerformed
-							if(evt.getSource() == btnAdd){
-								AddNewAgentGUI.main(null);
+					btnDelete = new JButton();
+					getContentPane().add(btnDelete);
+					btnDelete.setText("Delete Agent");
+					btnDelete.setBounds(327, 242, 143, 32);
+					btnDelete.setEnabled(false);
+					btnDelete.addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent evt) {
+							//System.out.println("btnDelete.mouseClicked, event="+evt);
+							//TODO add your code for btnDelete.mouseClicked
+							
+							if(btnDelete.isEnabled() == true){
+								int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this agent?");
+								if(option == JOptionPane.YES_OPTION){
+									if(evt.getSource() == btnDelete){
+										CustomerGUI.main(null);
+									}
+								}
 							}
 						}
 					});

@@ -2,7 +2,10 @@ package Travel.GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,13 +31,12 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JLabel jLabel5;
+	private JComboBox cmbAgency;
 	private JButton btnExit;
 	private JLabel jLabel9;
 	private JPanel pnlAddAgent;
 	private JButton btnReset;
 	private JButton btnSave;
-	private JTextField txtAgencyName;
-	private JTextField txtAgencyId;
 	private JTextField txtPosition;
 	private JTextField txtEmail;
 	private JTextField txtBusPhone;
@@ -94,9 +96,7 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnReset.mouseClicked, event="+evt);
 							//TODO add your code for btnReset.mouseClicked
-							JTextField [] txtField = {txtAgencyName,
-													txtAgencyId,
-													txtAgentID,
+							JTextField [] txtField = {txtAgentID,
 													txtBusPhone,
 													txtEmail,
 													txtFirstName,
@@ -201,16 +201,6 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 						txtPosition.setBounds(137, 187, 163, 22);
 					}
 					{
-						txtAgencyId = new JTextField();
-						pnlAddAgent.add(txtAgencyId);
-						txtAgencyId.setBounds(137, 213, 35, 22);
-					}
-					{
-						txtAgencyName = new JTextField();
-						pnlAddAgent.add(txtAgencyName);
-						txtAgencyName.setBounds(178, 213, 122, 22);
-					}
-					{
 						jLabel9 = new JLabel();
 						pnlAddAgent.add(jLabel9);
 						jLabel9.setText("Add Agent Information");
@@ -218,6 +208,15 @@ public class AddNewAgentGUI extends javax.swing.JDialog {
 						jLabel9.setBounds(18, 1, 280, 29);
 						jLabel9.setHorizontalAlignment(SwingConstants.CENTER);
 						jLabel9.setHorizontalTextPosition(SwingConstants.CENTER);
+					}
+					{
+						ComboBoxModel cmbAgencyModel = 
+								new DefaultComboBoxModel(
+										new String[] { "Item One", "Item Two" });
+						cmbAgency = new JComboBox();
+						pnlAddAgent.add(cmbAgency);
+						cmbAgency.setModel(cmbAgencyModel);
+						cmbAgency.setBounds(138, 212, 160, 22);
 					}
 				}
 				{

@@ -8,8 +8,11 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,9 +36,9 @@ import javax.swing.border.LineBorder;
 */
 public class EditAgentGUI extends javax.swing.JDialog {
 	private JPanel pnlEditAgent;
+	private JComboBox cmbAgency;
 	private JButton btnExit;
 	private ButtonGroup btnStatus;
-	private JButton btnReset;
 	private JButton btnSave;
 	private JLabel jLabel18;
 	private JLabel jLabel17;
@@ -46,8 +49,6 @@ public class EditAgentGUI extends javax.swing.JDialog {
 	private JLabel jLabel12;
 	private JLabel jLabel11;
 	private JLabel jLabel10;
-	private JTextField txtAgencyId;
-	private JTextField txtAgencyName;
 	private JTextField txtPosition;
 	private JTextField txtEmail;
 	private JTextField txtBusPhone;
@@ -121,16 +122,6 @@ public class EditAgentGUI extends javax.swing.JDialog {
 						txtPosition.setBounds(135, 180, 163, 22);
 					}
 					{
-						txtAgencyName = new JTextField();
-						pnlEditAgent.add(txtAgencyName);
-						txtAgencyName.setBounds(176, 206, 122, 22);
-					}
-					{
-						txtAgencyId = new JTextField();
-						pnlEditAgent.add(txtAgencyId);
-						txtAgencyId.setBounds(135, 206, 35, 22);
-					}
-					{
 						jLabel10 = new JLabel();
 						pnlEditAgent.add(jLabel10);
 						jLabel10.setText("Agency:");
@@ -181,6 +172,7 @@ public class EditAgentGUI extends javax.swing.JDialog {
 					{
 						jLabel18 = new JLabel();
 						pnlEditAgent.add(jLabel18);
+						pnlEditAgent.add(getCmbAgency());
 						jLabel18.setText("Edit Agent Information");
 						jLabel18.setHorizontalAlignment(SwingConstants.CENTER);
 						jLabel18.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -191,8 +183,9 @@ public class EditAgentGUI extends javax.swing.JDialog {
 				{
 					btnSave = new JButton();
 					getContentPane().add(btnSave);
+					getContentPane().add(getJButton1());
 					btnSave.setText("Save");
-					btnSave.setBounds(342, 128, 100, 36);
+					btnSave.setBounds(342, 169, 100, 36);
 					btnSave.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							//System.out.println("btnSave.actionPerformed, event="+evt);
@@ -206,33 +199,6 @@ public class EditAgentGUI extends javax.swing.JDialog {
 											setVisible(false);
 										}
 									});
-				}
-				{
-					btnReset = new JButton();
-					getContentPane().add(btnReset);
-					getContentPane().add(getJButton1());
-					btnReset.setText("Reset");
-					btnReset.setBounds(342, 169, 100, 36);
-					btnReset.addMouseListener(new MouseAdapter() {
-						public void mouseClicked(MouseEvent evt) {
-							//System.out.println("btnReset.mouseClicked, event="+evt);
-							//TODO add your code for btnReset.mouseClicked
-							JTextField [] txtField = {txtAgencyName,
-									txtAgencyId,
-									txtAgentId,
-									txtBusPhone,
-									txtEmail,
-									txtFirstName,
-									txtLastName,
-									txtMiddleInitial,
-									txtPosition};
-							
-							for(JTextField tf: txtField)
-							{
-								tf.setText("");
-							}
-						}
-					});
 				}
 			}
 			this.setSize(460, 290);
@@ -262,6 +228,18 @@ public class EditAgentGUI extends javax.swing.JDialog {
 			});
 		}
 		return btnExit;
+	}
+	
+	private JComboBox getCmbAgency() {
+		if(cmbAgency == null) {
+			ComboBoxModel cmbAgencyModel = 
+					new DefaultComboBoxModel(
+							new String[] { "Item One", "Item Two" });
+			cmbAgency = new JComboBox();
+			cmbAgency.setModel(cmbAgencyModel);
+			cmbAgency.setBounds(136, 205, 160, 22);
+		}
+		return cmbAgency;
 	}
 
 }
