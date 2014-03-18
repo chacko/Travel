@@ -20,8 +20,6 @@ import javax.swing.*;
 */
 public class TravelApp extends javax.swing.JFrame {
 
-	private JMenuItem helpMenuItem;
-	private JMenu jMenu5;
 	private JLabel lblMain;
 	private JMenuItem mnuItmAgentExit;
 	private JSeparator jSeparator1;
@@ -132,16 +130,6 @@ public class TravelApp extends javax.swing.JFrame {
 					{
 						jSeparator1 = new JSeparator();
 						mnuAgent.add(jSeparator1);
-					}
-				}
-				{
-					jMenu5 = new JMenu();
-					jMenuBar1.add(jMenu5);
-					jMenu5.setText("Help");
-					{
-						helpMenuItem = new JMenuItem();
-						jMenu5.add(helpMenuItem);
-						helpMenuItem.setText("Help");
 					}
 				}
 			}

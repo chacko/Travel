@@ -126,7 +126,7 @@ public class AgentSearchJDialog extends javax.swing.JDialog {
 							//System.out.println("btnAdd.actionPerformed, event="+evt);
 							//TODO add your code for btnAdd.actionPerformed
 							if(evt.getSource() == btnAdd){
-								AddNewAgentGUI.main(null);
+								AgentAddJDialog.main(null);
 							}
 						}
 					});
@@ -172,7 +172,7 @@ public class AgentSearchJDialog extends javax.swing.JDialog {
 								int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this agent?");
 								if(option == JOptionPane.YES_OPTION){
 									if(evt.getSource() == btnDelete){
-										CustomerGUI.main(null);
+										CustomerAssign.main(null);
 									}
 								}
 							}
