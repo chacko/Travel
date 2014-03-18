@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Travel.Entity.Agents;
+
 
 public class DBase 
 {
@@ -30,5 +32,45 @@ public class DBase
 		}
 		
 		stmnt.close();
+	}
+	
+	// get next id (primary key) for agents
+	public static Integer getNextvalAgentsSeq()
+	{
+		try 
+		{
+			Integer nextVal=0;
+			
+			// get connection
+			Connection conn = DBase.getOracleConnection();
+			
+			Statement stmt;
+			stmt = conn.createStatement();
+			
+			ResultSet rs;
+			String qry = "select agents_seq.nextval from dual ";
+			
+			
+			rs = stmt.executeQuery(qry.toString());
+		
+			while (rs.next())
+			{
+				nextVal = Integer.valueOf(rs.getString("nextval"));
+			}
+
+			// close all data base objects to release memory
+			DBase.closeDBase(conn, rs, stmt);
+			
+			return nextVal;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		return 1; // error condition
 	}
 }

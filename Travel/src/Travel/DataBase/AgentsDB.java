@@ -94,14 +94,19 @@ public class AgentsDB
 			
 			StringBuilder qry = new StringBuilder();
 			qry.append("select agentid,agtfirstname,agtmiddleinitial,agtlastname ");
-			qry.append(" from agents where LOWER(a.agtposition)  not like  'inactive'");
-			 
+			qry.append(" from agents where LOWER(agtposition)  not like  'inactive'");
+			qry.append(" and agtfirstname not like 'null' ");
+			
 			rs = stmt.executeQuery(qry.toString());
 			
 			while (rs.next())
 			{
 				Agents agt = new Agents();
-
+				agt.setAgentId(Integer.valueOf(rs.getString("agentid")));
+				agt.setAgentFName(rs.getString("agtfirstname"));
+				agt.setAgentMName(rs.getString("agtmiddleinitial"));
+				agt.setAgentLName(rs.getString("agtlastname"));
+				
 				agts.add(agt);
 				agt=null;
 			}
@@ -152,7 +157,11 @@ public class AgentsDB
 			while (rs.next())
 			{
 				Agents agt = new Agents();
-
+				agt.setAgentId(Integer.valueOf(rs.getString("agentid")));
+				agt.setAgentFName(rs.getString("agtfirstname"));
+				agt.setAgentMName(rs.getString("agtmiddleinitial"));
+				agt.setAgentLName(rs.getString("agtlastname"));
+				
 				agts.add(agt);
 				agt=null;
 			}
@@ -240,9 +249,10 @@ public class AgentsDB
 			stmt = conn.createStatement();
 			
 			StringBuilder qry = new StringBuilder();
-			qry.append("insert into agents (agtfirstname,agtmiddleinitial,agtlastname");
+			qry.append("insert into agents (agentid,agtfirstname,agtmiddleinitial,agtlastname");
 			qry.append(",agtbusphone,agtemail,agtposition,agencyid) values (");
-			qry.append("'");
+			qry.append(DBase.getNextvalAgentsSeq());
+			qry.append(",'");
 			qry.append(agt.getAgentFName());
 			qry.append("','");
 			qry.append(agt.getAgentMName());

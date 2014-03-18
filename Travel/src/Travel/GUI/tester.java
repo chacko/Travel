@@ -2,22 +2,32 @@ package Travel.GUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import Travel.DataBase.AgentsDB;
 import Travel.DataBase.FeesDB;
+import Travel.Entity.Agents;
 import Travel.Entity.Fees;
 
 public class tester {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
+		Vector<Agents> agts = new Vector<Agents>();
+		agts = AgentsDB.getAllAgents();
+		
+		System.out.println("No of agents" + agts.size());
+		
+		
+	/*	// TODO Auto-generated method stub
 		
 		Fees fee = new Fees();
 		
 		//BK
 		fee = FeesDB.getFees("BK");
 		
-		/*FeesDB feeInfo = new FeesDB();
-		fee = feeInfo.getFees("BK");*/
+		FeesDB feeInfo = new FeesDB();
+		fee = feeInfo.getFees("BK");
 		
 		List<Fees> feeLst =  new ArrayList<Fees>();
 		feeLst = FeesDB.getAllFees();
@@ -70,7 +80,7 @@ public class tester {
 		{
 			System.out.print(objFee.getFeeId() + "\t" + objFee.getFeeName() + "\t" + objFee.getFeeDesc() + "\t" + objFee.getFeeAmount());
 			System.out.println();
-		}
+		}*/
 	}
 
 }

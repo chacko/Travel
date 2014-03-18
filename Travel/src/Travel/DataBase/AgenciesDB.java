@@ -46,7 +46,9 @@ public class AgenciesDB
 			while (rs.next())
 			{
 				Agencies agcy = new Agencies();
-
+				agcy.setAgencyId(Integer.valueOf(rs.getString("agencyid")));
+				agcy.setAgncyCity(rs.getString("agncycity"));
+				
 				agncs.add(agcy);
 				agcy=null;
 			}
