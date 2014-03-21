@@ -77,11 +77,21 @@ public class TravelApp extends javax.swing.JFrame {
 						mnuItmPkgAdd = new JMenuItem();
 						mnuPackage.add(mnuItmPkgAdd);
 						mnuItmPkgAdd.setText("Add");
+						mnuItmPkgAdd.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								mnuItmPkgAddActionPerformed(evt);
+							}
+						});
 					}
 					{
 						mnuItmPkgEdit = new JMenuItem();
 						mnuPackage.add(mnuItmPkgEdit);
 						mnuItmPkgEdit.setText("Edit");
+						mnuItmPkgEdit.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								mnuItmPkgEditActionPerformed(evt);
+							}
+						});
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -91,6 +101,11 @@ public class TravelApp extends javax.swing.JFrame {
 						mnuItmPkgExit = new JMenuItem();
 						mnuPackage.add(mnuItmPkgExit);
 						mnuItmPkgExit.setText("Exit");
+						mnuItmPkgExit.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								mnuItmPkgExitActionPerformed(evt);
+							}
+						});
 					}
 				}
 				{
@@ -151,6 +166,22 @@ public class TravelApp extends javax.swing.JFrame {
 	private void mnuItmAgentEditActionPerformed(ActionEvent evt) {
 		AgentSearchJDialog.main(null);
 		
+	}
+	
+	private void mnuItmPkgAddActionPerformed(ActionEvent evt) 
+	{
+		PackageAddJDialog.main(null);
+		
+	}
+	
+	private void mnuItmPkgExitActionPerformed(ActionEvent evt) {
+		System.exit(0);
+	}
+	
+	private void mnuItmPkgEditActionPerformed(ActionEvent evt) {
+		//System.out.println("mnuItmPkgEdit.actionPerformed, event="+evt);
+		//TODO add your code for mnuItmPkgEdit.actionPerformed
+		PackageSearchJDialog.main(null);
 	}
 
 	/*private void mnuItmPkgAddActionPerformed(ActionEvent evt) {
