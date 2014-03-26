@@ -58,13 +58,17 @@ public class TravelApp extends javax.swing.JFrame {
 			}
 			{
 				lblMain = new JLabel();
-				getContentPane().add(lblMain, BorderLayout.CENTER);
-				lblMain.setText("TRAVEL EXPERTS ");
+				getContentPane().add(lblMain, "Center");
 				lblMain.setFont(new java.awt.Font("Abyssinica SIL",1,48));
+				//lblMain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Images/travel2.jpeg")));
+				lblMain.setBounds(0, 0, 1196, 745);
+				lblMain.setText("TRAVEL EXPERTS");
 			}
 			this.setSize(755, 391);
-			this.setBounds(0, 0, 1200, 800);
+			this.setBounds(0, 0, 800, 600);
 			this.setResizable(false);
+			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("Images/travel.jpg")).getImage());
+			getContentPane().setLayout(null);
 
 			{
 				jMenuBar1 = new JMenuBar();

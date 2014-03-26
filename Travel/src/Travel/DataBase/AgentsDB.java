@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.Vector;
 
 import Travel.Entity.Agents;
-import Travel.Entity.Fees;
+
 
 /**
  * @author 		George Chacko & Sharmaine
@@ -26,6 +26,7 @@ public class AgentsDB
 		
 	}
 		
+	
 	/* Data base methods */
 	// SELECT - Get get specific agent information
 	public static Agents getAgent(Integer agentId)
@@ -315,4 +316,56 @@ public class AgentsDB
 		return numRows;
 	}
 	// -----------------------------------------
+	public static Vector<Agents> getAllAgentsX(String agentID) 
+	{
+		try 
+		{
+			Vector<Agents> agts = new Vector<Agents>();
+			
+			// get oracle connection
+			Connection conn = DBase.getOracleConnection();
+			
+			Statement stmt;
+			stmt = conn.createStatement();
+			
+			ResultSet rs;
+			
+			StringBuilder qry = new StringBuilder();
+			qry.append("select agentid, agtfirstname, agtmiddleinitial, agtlastname ");
+			qry.append(" from agents");
+			qry.append(" where agtposition != 'inactive'");
+			qry.append(" and agentid != ");
+			qry.append(agentID);
+			
+			rs = stmt.executeQuery(qry.toString());
+			
+			while (rs.next())
+			{
+				Agents agt = new Agents();
+				agt.setAgentId(Integer.valueOf(rs.getString("agentid")));
+				agt.setAgentFName(rs.getString("agtfirstname"));
+				agt.setAgentMName(rs.getString("agtmiddleinitial"));
+				agt.setAgentLName(rs.getString("agtlastname"));
+				
+				agts.add(agt);
+				agt=null;
+			}
+			// close all data base objects 
+			DBase.closeDBase(conn, rs, stmt);
+						
+			return agts;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	//-------------------------------------------
 }

@@ -12,6 +12,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -33,7 +35,9 @@ import org.jdesktop.swingx.autocomplete.*;
 
 import Travel.DataBase.AgenciesDB;
 import Travel.DataBase.AgentsDB;
+import Travel.DataBase.CustomerDB;
 import Travel.Entity.Agents;
+import Travel.Entity.Customers;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -49,13 +53,15 @@ import Travel.Entity.Agents;
 */
 public class AgentSearchJDialog extends javax.swing.JDialog {
 	public JList lstAgent;
-	private JButton btnAdd;
 	private JButton btnDelete;
+	private JScrollPane jScrollPane1;
 	private JTextField txtSearchAgent;
 	private JLabel jLabel1;
 	private JButton btnExit;
 	private JButton btnEdit;
 
+	private Vector<Agents> agents = new Vector<Agents>();
+	
 	/**
 	* Auto-generated main method to display this JDialog
 	*/
@@ -79,58 +85,43 @@ public class AgentSearchJDialog extends javax.swing.JDialog {
 			{
 				this.setModal(true);
 				getContentPane().setLayout(null);
+				
+				{
+					jScrollPane1 = new JScrollPane(lstAgent);
+					getContentPane().add(jScrollPane1);
+					jScrollPane1.setBounds(16, 48, 296, 263);
+					jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+					jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+					{
+						agents = AgentsDB.getAllAgents();
+						
+						ComboBoxModel cboAgencyModel = 
+								new DefaultComboBoxModel(agents);
+						
+						lstAgent = new JList(agents);
+						jScrollPane1.setViewportView(lstAgent);
+
+						lstAgent.setBounds(13, 47, 300, 264);
+						lstAgent.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
+						lstAgent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+						lstAgent.setPreferredSize(new java.awt.Dimension(295, 264));
+						lstAgent.addListSelectionListener(new ListSelectionListener() {
+							public void valueChanged(ListSelectionEvent evt) {
+								//System.out.println("lstAgent.valueChanged, event="+evt);
+								//TODO add your code for lstAgent.valueChanged
+								if(lstAgent.isSelectionEmpty()){
+									btnEdit.setEnabled(false);
+									btnDelete.setEnabled(false);
+								}
+								else{
+									btnEdit.setEnabled(true);
+									btnDelete.setEnabled(true);
+								}
+							}
+						});
+					}
+				}
 				//this.setModalityType(java.awt.Dialog$ModalityType.APPLICATION_MODAL);
-				{
-					//ArrayList<String> agents = new ArrayList<>();
-					Vector<Agents> agents = new Vector<Agents>();
-					
-					agents = AgentsDB.getAllAgents();
-					/*agents.add("1");
-					agents.add("2");
-					agents.add("3");
-					agents.add("4");
-					agents.add("5");*/
-					
-					ComboBoxModel cboAgencyModel = 
-							new DefaultComboBoxModel(agents);
-					
-					//lstAgent = new JList(agents.toArray());
-					lstAgent = new JList(agents);
-					
-					getContentPane().add(lstAgent);
-					lstAgent.setBounds(12, 48, 303, 269);
-					lstAgent.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
-					lstAgent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					lstAgent.addListSelectionListener(new ListSelectionListener() {
-						public void valueChanged(ListSelectionEvent evt) {
-							//System.out.println("lstAgent.valueChanged, event="+evt);
-							//TODO add your code for lstAgent.valueChanged
-							if(lstAgent.isSelectionEmpty()){
-								btnEdit.setEnabled(false);
-								btnDelete.setEnabled(false);
-							}
-							else{
-								btnEdit.setEnabled(true);
-								btnDelete.setEnabled(true);
-							}
-						}
-					});
-				}
-				{
-					btnAdd = new JButton();
-					getContentPane().add(btnAdd);
-					btnAdd.setText("Add New Agent");
-					btnAdd.setBounds(327, 162, 143, 32);
-					btnAdd.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							//System.out.println("btnAdd.actionPerformed, event="+evt);
-							//TODO add your code for btnAdd.actionPerformed
-							if(evt.getSource() == btnAdd){
-								AgentAddJDialog.main(null);
-							}
-						}
-					});
-				}
 				{
 					btnEdit = new JButton();
 					getContentPane().add(btnEdit);
@@ -148,11 +139,6 @@ public class AgentSearchJDialog extends javax.swing.JDialog {
 								String [] args = {String.valueOf(agt.getAgentId())};
 								
 								AgentEditJDialog.main(args);
-								
-								//ComboBoxModel newModel = 
-									//	new DefaultComboBoxModel(AgentsDB.getAllAgents());
-								//lstAgent.setModel(newModel);
-								
 							}
 						}
 					});
@@ -168,12 +154,21 @@ public class AgentSearchJDialog extends javax.swing.JDialog {
 							//System.out.println("btnDelete.mouseClicked, event="+evt);
 							//TODO add your code for btnDelete.mouseClicked
 							
-							if(btnDelete.isEnabled() == true){
-								int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this agent?");
-								if(option == JOptionPane.YES_OPTION){
-									if(evt.getSource() == btnDelete){
-										CustomerAssign.main(null);
-									}
+							int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this agent?",null,JOptionPane.YES_NO_OPTION);
+							if(option == JOptionPane.YES_OPTION){
+								Agents agt = (Agents) lstAgent.getSelectedValue();
+								int agentID = agt.getAgentId();
+								
+								String [] args = {String.valueOf(agt.getAgentId())};
+								int cust = CustomerDB.findAgent(agentID);
+								
+								if(cust == 0){
+									AgentsDB.deleteAgent(agentID);
+									JOptionPane.showMessageDialog(null, "Agent " + agt + " successfully removed!");
+									lstAgent.setListData(AgentsDB.getAllAgents());
+								}
+								else {
+									CustomerAssign.main(args);
 								}
 							}
 						}

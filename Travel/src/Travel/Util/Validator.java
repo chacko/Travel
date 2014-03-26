@@ -17,6 +17,17 @@ public class Validator
 		
 		return m.matches();
 	}
-	
-	
+	//check for double
+	public static boolean isDouble(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
 }

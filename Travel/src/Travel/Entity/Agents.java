@@ -79,7 +79,19 @@ public class Agents
 	 */
 	@Override
 	public String toString() {
-		return this.agentFName + " " + this.agentMName + " " + this.agentLName;
+		String midl ="";
+		String lstName ="";
+		
+		if(this.agentMName != null)
+		{
+			midl=this.agentMName;
+		}
+		/*if(!this.agentLName.isEmpty())
+		{
+			lstName=this.agentLName;
+		}*/
+		
+		return this.agentFName + " " + midl + " " + this.agentLName;
 	}
 	
 	

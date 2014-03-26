@@ -46,12 +46,13 @@ import Travel.Entity.Agents;
 */
 public class AgentEditJDialog extends javax.swing.JDialog {
 	private JPanel pnlEditAgent;
+	private JLabel lbl2;
+	private JLabel lbl1;
 	private JComboBox cmbAgency;
 	private JButton btnExit;
 	private ButtonGroup btnStatus;
 	private JButton btnSave;
 	private JLabel jLabel18;
-	private JLabel jLabel17;
 	private JLabel jLabel16;
 	private JLabel jLabel15;
 	private JLabel jLabel14;
@@ -65,8 +66,7 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 	private JTextField txtLastName;
 	private JTextField txtMiddleInitial;
 	private JTextField txtFirstName;
-	private JTextField txtAgentId;
-	
+
 	private static String agentID; 
 	/**
 	* Auto-generated main method to display this JDialog
@@ -100,87 +100,76 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 					pnlEditAgent.setLayout(null);
 					pnlEditAgent.setBounds(17, 11, 313, 238);
 					{
-						txtAgentId = new JTextField();
-						pnlEditAgent.add(txtAgentId);
-						txtAgentId.setBounds(135, 29, 163, 22);
-					}
-					{
 						txtFirstName = new JTextField();
 						pnlEditAgent.add(txtFirstName);
-						txtFirstName.setBounds(135, 54, 163, 22);
+						txtFirstName.setBounds(135, 44, 163, 22);
 					}
 					{
 						txtMiddleInitial = new JTextField();
 						pnlEditAgent.add(txtMiddleInitial);
-						txtMiddleInitial.setBounds(135, 79, 35, 22);
+						txtMiddleInitial.setBounds(135, 69, 35, 22);
 					}
 					{
 						txtLastName = new JTextField();
 						pnlEditAgent.add(txtLastName);
-						txtLastName.setBounds(135, 104, 163, 22);
+						txtLastName.setBounds(135, 94, 163, 22);
 					}
 					{
 						txtBusPhone = new JTextField();
 						pnlEditAgent.add(txtBusPhone);
-						txtBusPhone.setBounds(135, 130, 163, 22);
+						txtBusPhone.setBounds(135, 120, 163, 22);
 					}
 					{
 						txtEmail = new JTextField();
 						pnlEditAgent.add(txtEmail);
-						txtEmail.setBounds(135, 155, 163, 22);
+						txtEmail.setBounds(135, 145, 163, 22);
 					}
 					{
 						txtPosition = new JTextField();
 						pnlEditAgent.add(txtPosition);
-						txtPosition.setBounds(135, 180, 163, 22);
+						txtPosition.setBounds(135, 170, 163, 22);
 					}
 					{
 						jLabel10 = new JLabel();
 						pnlEditAgent.add(jLabel10);
 						jLabel10.setText("Agency:");
-						jLabel10.setBounds(13, 195, 110, 42);
+						jLabel10.setBounds(13, 185, 110, 42);
 					}
 					{
 						jLabel11 = new JLabel();
 						pnlEditAgent.add(jLabel11);
 						jLabel11.setText("Position:");
-						jLabel11.setBounds(14, 169, 110, 42);
+						jLabel11.setBounds(14, 159, 110, 42);
 					}
 					{
 						jLabel12 = new JLabel();
 						pnlEditAgent.add(jLabel12);
 						jLabel12.setText("Email:");
-						jLabel12.setBounds(13, 144, 110, 42);
+						jLabel12.setBounds(13, 134, 110, 42);
 					}
 					{
 						jLabel13 = new JLabel();
 						pnlEditAgent.add(jLabel13);
 						jLabel13.setText("Phone Number:");
-						jLabel13.setBounds(13, 119, 110, 42);
+						jLabel13.setBounds(13, 109, 110, 42);
 					}
 					{
 						jLabel14 = new JLabel();
 						pnlEditAgent.add(jLabel14);
 						jLabel14.setText("Last Name:");
-						jLabel14.setBounds(13, 93, 110, 42);
+						jLabel14.setBounds(13, 83, 110, 42);
 					}
 					{
 						jLabel15 = new JLabel();
 						pnlEditAgent.add(jLabel15);
 						jLabel15.setText("Middle Initial:");
-						jLabel15.setBounds(13, 68, 110, 42);
+						jLabel15.setBounds(13, 58, 110, 42);
 					}
 					{
 						jLabel16 = new JLabel();
 						pnlEditAgent.add(jLabel16);
 						jLabel16.setText("First Name:");
-						jLabel16.setBounds(13, 43, 110, 42);
-					}
-					{
-						jLabel17 = new JLabel();
-						pnlEditAgent.add(jLabel17);
-						jLabel17.setText("Agent ID:");
-						jLabel17.setBounds(13, 18, 110, 42);
+						jLabel16.setBounds(13, 33, 110, 42);
 					}
 					{
 						jLabel18 = new JLabel();
@@ -197,6 +186,8 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 					btnSave = new JButton();
 					getContentPane().add(btnSave);
 					getContentPane().add(getJButton1());
+					getContentPane().add(getLbl1());
+					getContentPane().add(getLbl2());
 					btnSave.setText("Save");
 					btnSave.setBounds(342, 169, 100, 36);
 					btnSave.addActionListener(new ActionListener() {
@@ -214,15 +205,12 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 											{
 												JOptionPane.showMessageDialog(null,"Agent data saved!!!");
 											}
-											
 											dispose();
-											
-											
 										}
 									});
 				}
 			}
-			this.setSize(460, 290);
+			this.setSize(454, 338);
 			//---- populate data from data base into form fields
 			setTextfieldData();
 			
@@ -256,13 +244,14 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 	}
 	
 	private JComboBox getCmbAgency() {
-		if(cmbAgency == null) {
+		//if(cmbAgency == null) {
 			ComboBoxModel cmbAgencyModel = 
 					new DefaultComboBoxModel(AgenciesDB.getAllAgencies());
 			cmbAgency = new JComboBox();
 			cmbAgency.setModel(cmbAgencyModel);
-			cmbAgency.setBounds(136, 205, 160, 22);
-		}
+			cmbAgency.setBounds(136, 195, 160, 22);
+		//}
+		//setTextfieldData();
 		return cmbAgency;
 	}
 	//---------------------------------------------------------------------
@@ -282,8 +271,10 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 		txtPosition.setText(agt.getAgentPosn());
 		
 		//
-		cmbAgency.setSelectedItem(agt);
+		cmbAgency.setSelectedItem(AgenciesDB.getAgency(agt.getAgentAgencyId()));
 		
+		lbl1.setText(agt.getAgentAgencyId().toString());
+		lbl2.setText(AgenciesDB.getAgency(agt.getAgentAgencyId()).getAgncyCity());
 	}
 	//---------------------------------------------------------------------
 	private Agents  getTextfieldData()
@@ -301,6 +292,24 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 		agt.setAgentAgencyId(((Agencies)cmbAgency.getSelectedItem()).getAgencyId());
 		
 		return agt;
+	}
+	
+	private JLabel getLbl1() {
+		if(lbl1 == null) {
+			lbl1 = new JLabel();
+			lbl1.setText("jLabel1");
+			lbl1.setBounds(22, 261, 119, 15);
+		}
+		return lbl1;
+	}
+	
+	private JLabel getLbl2() {
+		if(lbl2 == null) {
+			lbl2 = new JLabel();
+			lbl2.setText("jLabel1");
+			lbl2.setBounds(22, 282, 134, 15);
+		}
+		return lbl2;
 	}
 	//---------------------------------------------------------------------
 	

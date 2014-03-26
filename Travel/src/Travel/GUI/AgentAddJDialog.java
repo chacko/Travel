@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -85,28 +86,31 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 					btnSave = new JButton();
 					getContentPane().add(btnSave);
 					btnSave.setText("Save");
-					btnSave.setBounds(345, 154, 100, 36);
+					btnSave.setBounds(393, 154, 100, 36);
 					btnSave.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) 
 						{
 							lblMessage.setText("");
 							if(validateFields())
 							{
-								lblmsg1.setText("It is VALID");
+								//lblmsg1.setText("It is VALID");
+								int numrows = insertAgent();
 								
-								if(insertAgent() <=0)
+								if(numrows >0)
 								{
-									lblMessage.setText("Insert failed !!!");
+									// show message on successful insert operation
+									JOptionPane.showMessageDialog(null,"Agent data added!!!");
+									dispose();
 								}
 								else
 								{
-									// On successful insertion return to main App
-									AgentAddJDialog.this.dispose();
+									// On unsuccessful insertion show error message
+									lblMessage.setText("Insert failed !!!");
 								}
 							}
 							else
 							{
-								lblmsg1.setText("It is NOT VALID");
+								//lblmsg1.setText("Data is NOT VALID");
 							}
 							
 							
@@ -117,7 +121,7 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 					btnReset = new JButton();
 					getContentPane().add(btnReset);
 					btnReset.setText("Reset");
-					btnReset.setBounds(345, 195, 100, 36);
+					btnReset.setBounds(393, 195, 100, 36);
 					btnReset.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnReset.mouseClicked, event="+evt);
@@ -140,85 +144,85 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 					pnlAddAgent = new JPanel();
 					getContentPane().add(pnlAddAgent);
 					pnlAddAgent.setLayout(null);
-					pnlAddAgent.setBounds(16, 7, 318, 267);
+					pnlAddAgent.setBounds(16, 7, 365, 267);
 					pnlAddAgent.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 					{
 						jLabel2 = new JLabel();
 						pnlAddAgent.add(jLabel2);
 						jLabel2.setText("First Name:(*)");
-						jLabel2.setBounds(15, 50, 110, 19);
+						jLabel2.setBounds(15, 50, 132, 19);
 					}
 					{
 						jLabel8 = new JLabel();
 						pnlAddAgent.add(jLabel8);
 						jLabel8.setText("Agency:");
-						jLabel8.setBounds(15, 217, 110, 19);
+						jLabel8.setBounds(15, 217, 132, 19);
 					}
 					{
 						jLabel3 = new JLabel();
 						pnlAddAgent.add(jLabel3);
 						jLabel3.setText("Middle Initial:");
-						jLabel3.setBounds(15, 77, 110, 19);
+						jLabel3.setBounds(15, 77, 132, 19);
 					}
 					{
 						jLabel4 = new JLabel();
 						pnlAddAgent.add(jLabel4);
 						jLabel4.setText("Last Name:");
-						jLabel4.setBounds(15, 105, 110, 19);
+						jLabel4.setBounds(15, 105, 132, 19);
 					}
 					{
 						jLabel5 = new JLabel();
 						pnlAddAgent.add(jLabel5);
 						jLabel5.setText("Phone Number:(*)");
-						jLabel5.setBounds(15, 133, 110, 19);
+						jLabel5.setBounds(15, 133, 132, 19);
 					}
 					{
 						jLabel6 = new JLabel();
 						pnlAddAgent.add(jLabel6);
 						jLabel6.setText("Email:(*)");
-						jLabel6.setBounds(15, 161, 110, 19);
+						jLabel6.setBounds(15, 161, 132, 19);
 					}
 					{
 						jLabel7 = new JLabel();
 						pnlAddAgent.add(jLabel7);
 						jLabel7.setText("Position:");
-						jLabel7.setBounds(16, 189, 110, 19);
+						jLabel7.setBounds(16, 189, 132, 19);
 					}
 					{
 						txtFirstName = new LimitedJTextField(40);
 						pnlAddAgent.add(txtFirstName);
-						txtFirstName.setBounds(137, 50, 163, 22);
+						txtFirstName.setBounds(159, 50, 163, 22);
 						txtFirstName.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 						txtFirstName.setToolTipText("Mandatory");
 					}
 					{
 						txtMiddleInitial = new LimitedJTextField(10);
 						pnlAddAgent.add(txtMiddleInitial);
-						txtMiddleInitial.setBounds(137, 77, 75, 22);
+						txtMiddleInitial.setBounds(159, 77, 75, 22);
 						txtMiddleInitial.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 					}
 					{
 						txtLastName = new LimitedJTextField(40);
 						pnlAddAgent.add(txtLastName);
-						txtLastName.setBounds(137, 105, 163, 22);
+						txtLastName.setBounds(159, 105, 163, 22);
 						txtLastName.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 					}
 					{
 						txtBusPhone = new LimitedJTextField(40);
 						pnlAddAgent.add(txtBusPhone);
-						txtBusPhone.setBounds(137, 133, 163, 22);
+						txtBusPhone.setBounds(159, 133, 163, 22);
 						txtBusPhone.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 					}
 					{
 						txtEmail = new LimitedJTextField(100);
 						pnlAddAgent.add(txtEmail);
-						txtEmail.setBounds(137, 161, 163, 22);
+						txtEmail.setBounds(159, 161, 163, 22);
 						txtEmail.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 					}
 					{
 						txtPosition = new LimitedJTextField(40);
 						pnlAddAgent.add(txtPosition);
-						txtPosition.setBounds(137, 189, 163, 22);
+						txtPosition.setBounds(159, 189, 163, 22);
 						txtPosition.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 					}
 					{
@@ -236,26 +240,27 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 						cboAgency = new JComboBox();
 						pnlAddAgent.add(cboAgency);
 						cboAgency.setModel(cboAgencyModel);
-						cboAgency.setBounds(137, 217, 163, 22);
+						cboAgency.setBounds(159, 217, 163, 22);
 					}
 				}
 				{
 					btnExit = new JButton();
 					getContentPane().add(btnExit);
 					btnExit.setText("Exit");
-					btnExit.setBounds(345, 236, 100, 36);
+					btnExit.setBounds(393, 236, 100, 36);
 					btnExit.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnReset.mouseClicked, event="+evt);
 							//TODO add your code for btnReset.mouseClicked
 							
-							try {
+							dispose();
+							/*try {
 								this.finalize();
 							} catch (Throwable e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							setVisible(false);
+							setVisible(false);*/
 						}
 					});
 				}
@@ -263,7 +268,7 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 					lblMessage = new JLabel();
 					getContentPane().add(lblMessage);
 					lblMessage.setText("lblMessage");
-					lblMessage.setBounds(16, 286, 301, 15);
+					lblMessage.setBounds(16, 284, 301, 15);
 				}
 				{
 					lblmsg1 = new JLabel();
@@ -271,7 +276,9 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 					lblmsg1.setBounds(16, 311, 215, 15);
 				}
 			}
-			this.setSize(491, 356);
+			this.setSize(539, 352);
+			lblMessage.setText("");
+			lblmsg1.setText("");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -300,6 +307,7 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 		if(txtFirstName.getText().trim().isEmpty())
 		{
 			lblMessage.setText("First Name is mandatory");
+			txtFirstName.requestFocus();
 			return false;
 		}
 		
@@ -307,18 +315,23 @@ public class AgentAddJDialog extends javax.swing.JDialog {
 		if(txtBusPhone.getText().trim().isEmpty())
 		{
 			lblMessage.setText("Business phone is mandatory");
+			txtBusPhone.requestFocus();
 			return false;
 		}
 		
 		// Email - mandatory check
 		if(txtEmail.getText().trim().isEmpty())
 		{
+			lblMessage.setText("Email is mandatory");
+			txtEmail.requestFocus();
 			return false;
 		}
 		
 		// check email format
 		if(!Validator.isValidEmail(txtEmail.getText()))
 		{ 
+			lblMessage.setText("Invalid Email");
+			txtEmail.requestFocus();
 			return false;
 		}
 		
