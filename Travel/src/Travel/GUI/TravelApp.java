@@ -61,7 +61,7 @@ public class TravelApp extends javax.swing.JFrame {
 				getContentPane().add(lblMain, "Center");
 				lblMain.setFont(new java.awt.Font("Abyssinica SIL",1,48));
 				//lblMain.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Images/travel2.jpeg")));
-				lblMain.setBounds(0, 0, 1196, 745);
+				lblMain.setBounds(0, 125, 744, 94);
 				lblMain.setText("TRAVEL EXPERTS");
 			}
 			this.setSize(755, 391);

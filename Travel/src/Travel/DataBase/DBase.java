@@ -73,4 +73,18 @@ public class DBase
 		}
 		return 1; // error condition
 	}
+	//--------------------------------
+	// to return dd-mmm-yy format of date string to insert into oracle
+	// data base
+	// After much struggle to handle format options at edit dialog
+	// and insert method resorted to this function
+	public static String getddMMMyyFormat(String dtString)
+	{
+		// example => "Mon Mar 03 00:00:00 MST 2014"
+		String dtArray [] = dtString.split(" ");
+		
+		return dtArray[2] + "-" + dtArray[1] + "-" + dtArray[5].substring(2);  
+		
+	}
+	//--------------------------------
 }

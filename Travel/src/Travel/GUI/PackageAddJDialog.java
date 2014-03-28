@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -27,6 +28,7 @@ import javax.swing.text.DateFormatter;
 
 
 
+
 import org.jdesktop.swingx.autocomplete.*;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -35,6 +37,7 @@ import com.qt.datapicker.*;
 import Travel.DataBase.*;
 import Travel.Entity.*;
 import Travel.Util.*;
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -47,6 +50,9 @@ import Travel.Util.*;
 * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
+/**
+* 
 */
 public class PackageAddJDialog extends javax.swing.JDialog {
 	private JLabel jLabel3;
@@ -70,8 +76,8 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 	private JLabel jLabel8;
 	private JLabel jLabel7;
 	private JLabel jLabel6;
-	private JButton jButton1;
-	private JButton jButton2;
+	private JButton jBtnStart;
+	private JButton jBtnEnd;
 	Date currDt = new Date(); 
 
 	/**
@@ -93,7 +99,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 		initGUI();
 	}
 	
-	private void jButton1ActionPerformed(ActionEvent evt)
+	private void jBtnStartActionPerformed(ActionEvent evt)
 	{
 		String lang = null;
 		final Locale locale = getlocale(lang);
@@ -103,7 +109,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 		
 		dp.start(txtPackageStartDate);
 	}
-	private void jButton2ActionPerformed(ActionEvent evt)
+	private void jBtnEndActionPerformed(ActionEvent evt)
 	{
 		String lang = null;
 		final Locale locale = getlocale(lang);
@@ -151,16 +157,24 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 							{
 								//lblmsg1.setText("It is VALID");
 								
-								if(insertPackage() <=0)
-								{
-									lblMessage.setText("PaInsert failed !!!");
-								}
-								else
-								{
-									// On successful insertion return to main App
-									// show message on successful insert operation
-									JOptionPane.showMessageDialog(null,"Package data added!!!");
-									dispose();
+								try {
+									if(insertPackage() <=0)
+									{
+										lblMessage.setText("Insert failed !!!");
+									}
+									else
+									{
+										// On successful insertion return to main App
+										// show message on successful insert operation
+										JOptionPane.showMessageDialog(null,"Package data added!!!");
+										dispose();
+									}
+								} catch (HeadlessException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 								}
 							}
 							else
@@ -257,15 +271,17 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 						txtPackageStartDate.setFont(new java.awt.Font("Abyssinica SIL",3,12));
 					}
 					{
-						jButton1 = new JButton();
-						pnlAddPackage.add(jButton1);
-						jButton1.setText("Calendar");
-						jButton1.setBounds(220, 161, 83, 22);
-						jButton1.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
-						jButton1.addActionListener(new ActionListener() {
+						jBtnStart = new JButton();
+						pnlAddPackage.add(jBtnStart);
+						jBtnStart.setBounds(220, 161, 42, 22);
+						jBtnStart.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
+						jBtnStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Images/cal.jpeg")));
+						//jBtnStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Images/cal.png")));
+						//jBtnStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Images/cal.jpg")));
+						jBtnStart.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								//System.out.println("here");
-								jButton1ActionPerformed(evt);
+								// clicking start calendar button
+								jBtnStartActionPerformed(evt);
 							}
 						});
 					}				
@@ -278,15 +294,15 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 						txtPackageEndDate.setFont(new java.awt.Font("Abyssinica SIL",3,12));
 					}
 					{
-						jButton2 = new JButton();
-						pnlAddPackage.add(jButton2);
-						jButton2.setText("Calendar");
-						jButton2.setBounds(220, 189, 80, 22);
-						jButton2.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
-						jButton2.addActionListener(new ActionListener() {
+						jBtnEnd = new JButton();
+						pnlAddPackage.add(jBtnEnd);
+						jBtnEnd.setBounds(220, 189, 42, 22);
+						jBtnEnd.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
+						jBtnEnd.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Images/cal.jpeg")));
+						jBtnEnd.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								//System.out.println("here");
-								jButton2ActionPerformed(evt);
+								jBtnEndActionPerformed(evt);
 							}
 						});
 					}	
@@ -352,16 +368,19 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 			
 			// initialize start and end dates 
 			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
-			txtPackageStartDate.setText(dateFormat.format(currDt));
-			txtPackageEndDate.setText(dateFormat.format(currDt));
+			//txtPackageStartDate.setText(dateFormat.format(currDt).toUpperCase());
+			//txtPackageEndDate.setText(dateFormat.format(currDt).toUpperCase());
+			//txtPackageStartDate.setText(dateFormat.format(currDt).toUpperCase());
+			//txtPackageEndDate.setText(dateFormat.format(currDt).toUpperCase());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	//----------------------------------
-	private Integer insertPackage()
+	private Integer insertPackage() throws ParseException
 	{
+		
 		Packages pkg = new Packages();
 		
 		//pkg.setPackageId(Integer.valueOf(txtPackageId.getText()));
@@ -369,9 +388,18 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 		pkg.setPackageDesc(txtPackageDesc.getText());
 		pkg.setPackagePrice(Double.valueOf(txtPackageBaseprice.getText()));
 		pkg.setPackageAgencyComm(Double.valueOf(txtComm.getText()));
-		//pkg.setPackageStartDate(Date.parse(txtPackageStartDate.getText()));
-		//pkg.setPackageEndDate((txtPackageEndDate.getText());
 		
+		SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yy");
+		Date tempDate = formatDate.parse(txtPackageStartDate.getText());
+		
+		pkg.setPackageStartDate(tempDate);
+		
+		SimpleDateFormat ftDate = new SimpleDateFormat("MM/dd/yy");
+		Date tmpDate = ftDate.parse(txtPackageEndDate.getText());
+		
+		pkg.setPackageEndDate(tmpDate);
+		
+		//return 0;
 		return PackagesDB.insertPackage(pkg);// call db layer for insert
 	}
 	//----------------------------------
