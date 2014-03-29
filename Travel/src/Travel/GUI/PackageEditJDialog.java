@@ -68,7 +68,7 @@ public class PackageEditJDialog extends javax.swing.JDialog {
 	* Auto-generated main method to display this JDialog
 	*/
 	public static void main(String[] args) {
-		//packageId = args[0].toString();
+		packageId = args[0].toString();
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -227,7 +227,7 @@ public class PackageEditJDialog extends javax.swing.JDialog {
 	 * */
 	private void setTextfieldData()
 	{
-		Packages pkg = PackagesDB.getPackage(Integer.valueOf(txtPackageId.getText()));
+		Packages pkg = PackagesDB.getPackage(Integer.valueOf(packageId));
 		
 		txtPackageName.setText(pkg.getPackageName());
 		txtPackageDesc.setText(pkg.getPackageDesc());

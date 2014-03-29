@@ -87,4 +87,14 @@ public class DBase
 		
 	}
 	//--------------------------------
+	//2014-04-02
+	public static String getMMddyyFormat(String dtString)
+	{
+		// example => "2014-04-02" <= yyyy-MM-dd
+		String dtArray [] = dtString.split("-");
+		
+		return dtArray[1] + "/" + dtArray[2] + "/" + dtArray[0].substring(2);  
+		
+	}
+	//--------------------------------
 }

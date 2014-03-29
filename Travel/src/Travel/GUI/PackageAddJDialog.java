@@ -29,9 +29,14 @@ import javax.swing.text.DateFormatter;
 
 
 
+
+
+
+
 import org.jdesktop.swingx.autocomplete.*;
 import org.jdesktop.swingx.JXDatePicker;
 
+import com.mysql.jdbc.EscapeTokenizer;
 import com.qt.datapicker.*;
 
 import Travel.DataBase.*;
@@ -80,10 +85,17 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 	private JButton jBtnEnd;
 	Date currDt = new Date(); 
 
+	private static String packageId; 
 	/**
 	* Auto-generated main method to display this JDialog
 	*/
 	public static void main(String[] args) {
+		if(args != null)
+		{
+			packageId = args[0].toString();
+		}
+		
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame frame = new JFrame();
@@ -143,7 +155,9 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 			{
 				this.setModal(true);
 				getContentPane().setLayout(null);
-				
+				this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				this.setUndecorated(true);
+
 				{
 					btnSave = new JButton();
 					getContentPane().add(btnSave);
@@ -153,12 +167,24 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 						public void mouseClicked(MouseEvent evt) 
 						{
 							lblMessage.setText("");
+							
 							if(validateFields())
 							{
-								//lblmsg1.setText("It is VALID");
-								
-								try {
-									if(insertPackage() <=0)
+								try 
+								{
+									Integer numRows=0;
+									
+									if(packageId != null) // edit mode
+									{
+										System.out.println(packageId);
+										numRows = PackagesDB.updatePackage(getTextfieldData());
+									}
+									else // add mode
+									{
+										numRows = PackagesDB.insertPackage(getTextfieldData());
+									}
+									
+									if(numRows <=0)
 									{
 										lblMessage.setText("Insert failed !!!");
 									}
@@ -166,7 +192,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 									{
 										// On successful insertion return to main App
 										// show message on successful insert operation
-										JOptionPane.showMessageDialog(null,"Package data added!!!");
+										JOptionPane.showMessageDialog(null,"Package data saved!!!");
 										dispose();
 									}
 								} catch (HeadlessException e) {
@@ -252,7 +278,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 					{
 						txtPackageDesc = new LimitedJTextField(40);
 						pnlAddPackage.add(txtPackageDesc);
-						txtPackageDesc.setBounds(135, 70, 163, 22);
+						txtPackageDesc.setBounds(135, 69, 163, 22);
 						txtPackageDesc.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 					}
 					{
@@ -269,6 +295,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 						txtPackageStartDate.setEditable(true);
 						txtPackageStartDate.setEnabled(false);
 						txtPackageStartDate.setFont(new java.awt.Font("Abyssinica SIL",3,12));
+						txtPackageStartDate.setForeground(new java.awt.Color(0,0,255));
 					}
 					{
 						jBtnStart = new JButton();
@@ -288,7 +315,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 					{
 						txtPackageEndDate = new ObservingTextField();
 						pnlAddPackage.add(txtPackageEndDate);
-						txtPackageEndDate.setBounds(137, 189, 83, 22);
+						txtPackageEndDate.setBounds(136, 189, 83, 22);
 						txtPackageEndDate.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 						txtPackageEndDate.setEnabled(false);
 						txtPackageEndDate.setFont(new java.awt.Font("Abyssinica SIL",3,12));
@@ -337,16 +364,8 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 					btnExit.setBounds(345, 236, 100, 36);
 					btnExit.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
-							//System.out.println("btnReset.mouseClicked, event="+evt);
-							//TODO add your code for btnReset.mouseClicked
-							
-							try {
-								this.finalize();
-							} catch (Throwable e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							setVisible(false);
+							packageId =null;
+							dispose(); 
 						}
 					});
 				}
@@ -372,6 +391,17 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 			//txtPackageEndDate.setText(dateFormat.format(currDt).toUpperCase());
 			//txtPackageStartDate.setText(dateFormat.format(currDt).toUpperCase());
 			//txtPackageEndDate.setText(dateFormat.format(currDt).toUpperCase());
+			// In edit mode
+			if(packageId != null)
+			{
+				setTextfieldData();
+				jLabel9.setText("Edit Package Information");
+			}
+			else
+			{
+				clearTextfieldData();
+				jLabel9.setText("Add Package Information");
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -381,7 +411,7 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 	private Integer insertPackage() throws ParseException
 	{
 		
-		Packages pkg = new Packages();
+		/*Packages pkg = new Packages();
 		
 		//pkg.setPackageId(Integer.valueOf(txtPackageId.getText()));
 		pkg.setPackageName(txtPackageName.getText());
@@ -397,10 +427,11 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 		SimpleDateFormat ftDate = new SimpleDateFormat("MM/dd/yy");
 		Date tmpDate = ftDate.parse(txtPackageEndDate.getText());
 		
-		pkg.setPackageEndDate(tmpDate);
+		pkg.setPackageEndDate(tmpDate);*/
 		
-		//return 0;
-		return PackagesDB.insertPackage(pkg);// call db layer for insert
+		//getTextfieldData
+		//return PackagesDB.insertPackage(pkg);// call db layer for insert
+		return PackagesDB.insertPackage(getTextfieldData());
 	}
 	//----------------------------------
 	private boolean validateFields()
@@ -479,5 +510,64 @@ public class PackageAddJDialog extends javax.swing.JDialog {
 		
 		return true;
 	}
-	//----------------------------------
+	
+	//---------------------------------------------------------------------
+	/**
+	 * get the data of package from packages table
+	 * set those data into form fields
+	 * */
+	private void setTextfieldData()
+	{
+		Packages pkg = PackagesDB.getPackage(Integer.valueOf(packageId));
+		
+		txtPackageName.setText(pkg.getPackageName());
+		txtPackageDesc.setText(pkg.getPackageDesc());
+		txtPackageBaseprice.setText(String.valueOf(pkg.getPackagePrice()));
+		txtComm.setText(String.valueOf(pkg.getPackageAgencyComm()));
+		
+		txtPackageStartDate.setText(DBase.getMMddyyFormat(String.valueOf(pkg.getPackageStartDate())));
+		txtPackageEndDate.setText(DBase.getMMddyyFormat(String.valueOf(pkg.getPackageEndDate())));		
+		
+	}
+	//---------------------------------------------------------------------
+	private void clearTextfieldData()
+	{
+		
+		txtPackageName.setText("");
+		txtPackageDesc.setText("");
+		txtPackageBaseprice.setText("");
+		txtComm.setText("");
+		
+		txtPackageStartDate.setText("");
+		txtPackageEndDate.setText("");		
+	}
+	//---------------------------------------------------------------------
+	private Packages  getTextfieldData() throws ParseException
+	{
+		Packages pkg = new Packages();
+		
+		if(packageId != null)
+		{
+			pkg.setPackageId(Integer.valueOf(packageId));	
+		}
+		
+		pkg.setPackageName(txtPackageName.getText());
+		pkg.setPackageDesc(txtPackageDesc.getText());
+		pkg.setPackagePrice(Double.valueOf(txtPackageBaseprice.getText()));
+		pkg.setPackageAgencyComm(Double.valueOf(txtComm.getText()));
+		
+		SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yy");
+		Date tempDate = formatDate.parse(txtPackageStartDate.getText());
+		
+		pkg.setPackageStartDate(tempDate);
+		
+		SimpleDateFormat ftDate = new SimpleDateFormat("MM/dd/yy");
+		Date tmpDate = ftDate.parse(txtPackageEndDate.getText());
+		
+		pkg.setPackageEndDate(tmpDate);
+		
+		return pkg;
+	}
+	//---------------------------------------------------------------------
+
 }

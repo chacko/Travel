@@ -38,7 +38,6 @@ import Travel.Entity.Packages;
 */
 public class PackageSearchJDialog extends javax.swing.JDialog {
 	public JList lstPackage;
-	private JButton btnAdd;
 	private JButton btnDelete;
 	private JTextField txtSearchPackage;
 	private JLabel jLabel1;
@@ -98,25 +97,10 @@ public class PackageSearchJDialog extends javax.swing.JDialog {
 					});
 				}
 				{
-					btnAdd = new JButton();
-					getContentPane().add(btnAdd);
-					btnAdd.setText("Add New Package");
-					btnAdd.setBounds(327, 162, 143, 32);
-					btnAdd.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							//System.out.println("btnAdd.actionPerformed, event="+evt);
-							//TODO add your code for btnAdd.actionPerformed
-							if(evt.getSource() == btnAdd){
-								PackageAddJDialog.main(null);
-							}
-						}
-					});
-				}
-				{
 					btnEdit = new JButton();
 					getContentPane().add(btnEdit);
 					btnEdit.setText("Edit Package");
-					btnEdit.setBounds(327, 202, 143, 32);
+					btnEdit.setBounds(327, 242, 143, 32);
 					btnEdit.setEnabled(false);
 					btnEdit.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
@@ -127,9 +111,10 @@ public class PackageSearchJDialog extends javax.swing.JDialog {
 								Packages pkg = (Packages) lstPackage.getSelectedValue();
 								//JOptionPane.showConfirmDialog(null, agt.getAgentId());
 								String [] args = {String.valueOf(pkg.getPackageId())};
+								//System.out.println(args[0]);
 								
-								PackageEditJDialog.main(args);
-								
+								//PackageEditJDialog.main(args);
+								PackageAddJDialog.main(args);
 							}
 						}
 					});
@@ -138,8 +123,9 @@ public class PackageSearchJDialog extends javax.swing.JDialog {
 					btnDelete = new JButton();
 					getContentPane().add(btnDelete);
 					btnDelete.setText("Delete Package:");
-					btnDelete.setBounds(327, 242, 143, 32);
+					btnDelete.setBounds(327, 159, 143, 32);
 					btnDelete.setEnabled(false);
+					btnDelete.setVisible(false);
 					btnDelete.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							//System.out.println("btnDelete.mouseClicked, event="+evt);

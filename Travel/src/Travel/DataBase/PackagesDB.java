@@ -132,26 +132,34 @@ public class PackagesDB {
 				
 				Statement stmt;
 				stmt = conn.createStatement();
+				String formattedStart = DBase.getddMMMyyFormat(pkg.getPackageStartDate().toString());
+				String formattedEnd = DBase.getddMMMyyFormat(pkg.getPackageEndDate().toString());
 				
 				StringBuilder qry = new StringBuilder();
 				qry.append("update packages set pkgname ='");
 				qry.append(pkg.getPackageName());
 				qry.append("',");
 				qry.append(" pkgstartdate ='");
-				qry.append(pkg.getPackageStartDate());
+				
+				//qry.append(pkg.getPackageStartDate());
+				qry.append(formattedStart);
+				
 				qry.append("',");
 				qry.append(" pkgenddate ='");
-				qry.append(pkg.getPackageEndDate());
+				
+				//qry.append(pkg.getPackageEndDate());
+				qry.append(formattedEnd);
+				
 				qry.append("',");
 				qry.append(" pkgdesc ='");
 				qry.append(pkg.getPackageDesc());
 				qry.append("',");
-				qry.append(" pkgbaseprice ='");
+				qry.append(" pkgbaseprice =");
 				qry.append(pkg.getPackagePrice());
-				qry.append("',");
-				qry.append(" pkgagencycommission ='");
+				qry.append(",");
+				qry.append(" pkgagencycommission =");
 				qry.append(pkg.getPackageAgencyComm());
-				qry.append(" where agentid =");
+				qry.append(" where packageid =");
 				qry.append(pkg.getPackageId());
 				
 				numRows = stmt.executeUpdate(qry.toString());

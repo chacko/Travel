@@ -273,6 +273,7 @@ public class AgentEditJDialog extends javax.swing.JDialog {
 		//
 		cmbAgency.setSelectedItem(AgenciesDB.getAgency(agt.getAgentAgencyId()));
 		
+		
 		lbl1.setText(agt.getAgentAgencyId().toString());
 		lbl2.setText(AgenciesDB.getAgency(agt.getAgentAgencyId()).getAgncyCity());
 	}

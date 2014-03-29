@@ -25,13 +25,13 @@ public class TravelApp extends javax.swing.JFrame {
 	private JSeparator jSeparator1;
 	private JMenuItem mnuItmAgentEdit;
 	private JMenuItem mnuItmAgentAdd;
-	private JMenu mnuAgent;
-	private JMenuItem mnuItmPkgExit;
 	private JSeparator jSeparator2;
 	private JMenuItem mnuItmPkgEdit;
 	private JMenuItem mnuItmPkgAdd;
-	private JMenu mnuPackage;
 	private JMenuBar jMenuBar1;
+	private JMenuItem mnuItmExit;
+	private JSeparator jSep3;
+	private JSeparator jSep4;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -73,84 +73,90 @@ public class TravelApp extends javax.swing.JFrame {
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
+				//--------------------------
 				{
-					mnuPackage = new JMenu();
-					jMenuBar1.add(mnuPackage);
-					mnuPackage.setText("Package");
-					{
-						mnuItmPkgAdd = new JMenuItem();
-						mnuPackage.add(mnuItmPkgAdd);
-						mnuItmPkgAdd.setText("Add");
-						mnuItmPkgAdd.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								mnuItmPkgAddActionPerformed(evt);
-							}
-						});
-					}
-					{
-						mnuItmPkgEdit = new JMenuItem();
-						mnuPackage.add(mnuItmPkgEdit);
-						mnuItmPkgEdit.setText("Edit");
-						mnuItmPkgEdit.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								mnuItmPkgEditActionPerformed(evt);
-							}
-						});
-					}
-					{
-						jSeparator2 = new JSeparator();
-						mnuPackage.add(jSeparator2);
-					}
-					{
-						mnuItmPkgExit = new JMenuItem();
-						mnuPackage.add(mnuItmPkgExit);
-						mnuItmPkgExit.setText("Exit");
-						mnuItmPkgExit.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								mnuItmPkgExitActionPerformed(evt);
-							}
-						});
-					}
+					mnuItmPkgAdd = new JMenuItem();
+					jMenuBar1.add(mnuItmPkgAdd);
+					mnuItmPkgAdd.setText("Package Insert");
+					mnuItmPkgAdd.setBackground(new java.awt.Color(173,216,230));
+					mnuItmPkgAdd.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							mnuItmPkgAddActionPerformed(evt);
+						}
+					});
 				}
+				//--------------------------
 				{
-					mnuAgent = new JMenu();
-					jMenuBar1.add(mnuAgent);
-					mnuAgent.setText("Agent");
-					{
-						mnuItmAgentAdd = new JMenuItem();
-						mnuAgent.add(mnuItmAgentAdd);
-						mnuItmAgentAdd.setText("Add");
-						mnuItmAgentAdd.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								mnuItmAgentAddActionPerformed(evt);
-							}
-						});
-					}
-					{
-						mnuItmAgentEdit = new JMenuItem();
-						mnuAgent.add(mnuItmAgentEdit);
-						mnuItmAgentEdit.setText("Edit");
-						mnuItmAgentEdit.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								mnuItmAgentEditActionPerformed(evt);
-							}
-						});
-					}
-					{
-						mnuItmAgentExit = new JMenuItem();
-						mnuAgent.add(mnuItmAgentExit);
-						mnuItmAgentExit.setText("Exit");
-						mnuItmAgentExit.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								mnuItmAgentExitActionPerformed(evt);
-							}
-						});
-					}
-					{
-						jSeparator1 = new JSeparator();
-						mnuAgent.add(jSeparator1);
-					}
+					jSeparator2 = new JSeparator(JSeparator.VERTICAL);
+					jMenuBar1.add(jSeparator2);
 				}
+				//--------------------------
+				{
+					mnuItmPkgEdit = new JMenuItem();
+					jMenuBar1.add(mnuItmPkgEdit);
+					mnuItmPkgEdit.setText("Package Change");
+					mnuItmPkgEdit.setBackground(new java.awt.Color(173,216,230));
+					mnuItmPkgEdit.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							mnuItmPkgEditActionPerformed(evt);
+						}
+					});
+				}
+				//--------------------------
+				{
+					jSeparator1 = new JSeparator(JSeparator.VERTICAL);
+					jMenuBar1.add(jSeparator1);
+				}
+				//--------------------------
+				{
+					mnuItmAgentAdd = new JMenuItem();
+					jMenuBar1.add(mnuItmAgentAdd);
+					mnuItmAgentAdd.setText("Agent Insert");
+					mnuItmAgentAdd.setBackground(new java.awt.Color(173,216,230));
+					mnuItmAgentAdd.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0,0,0)));
+					mnuItmAgentAdd.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							mnuItmAgentAddActionPerformed(evt);
+						}
+					});
+				}
+				//--------------------------
+				jSep4 = new JSeparator(JSeparator.VERTICAL);
+				jMenuBar1.add(jSep4);
+				//--------------------------
+				//---- agent edit menu item
+				{
+					mnuItmAgentEdit = new JMenuItem();
+					jMenuBar1.add(mnuItmAgentEdit);
+					mnuItmAgentEdit.setText("Agent Change");
+					mnuItmAgentEdit.setBackground(new java.awt.Color(173,216,230));
+					mnuItmAgentEdit.addActionListener(new ActionListener() 
+					{
+						public void actionPerformed(ActionEvent evt) 
+						{
+							mnuItmAgentEditActionPerformed(evt);
+						}
+					});
+				}
+				//--------------------------
+				jSep3 = new JSeparator(JSeparator.VERTICAL);
+				jMenuBar1.add(jSep3);
+				//--------------------------
+				{
+					mnuItmExit = new JMenuItem();
+					jMenuBar1.add(mnuItmExit);
+					mnuItmExit.setText("Exit");
+					//mnuItmExit.setPreferredSize(new java.awt.Dimension(25, 6));
+					mnuItmExit.setSize(100, 21);
+					mnuItmExit.setBackground(new java.awt.Color(173,216,230));
+					mnuItmExit.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							mnuItmExitActionPerformed(evt);
+						}
+					});
+				}
+				//----------------------
+				//----------------------
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -186,6 +192,12 @@ public class TravelApp extends javax.swing.JFrame {
 		//System.out.println("mnuItmPkgEdit.actionPerformed, event="+evt);
 		//TODO add your code for mnuItmPkgEdit.actionPerformed
 		PackageSearchJDialog.main(null);
+	}
+	
+	private void mnuItmExitActionPerformed(ActionEvent evt) {
+		//System.out.println("mnuItmExit.actionPerformed, event="+evt);
+		//TODO add your code for mnuItmExit.actionPerformed
+		System.exit(0);
 	}
 
 	/*private void mnuItmPkgAddActionPerformed(ActionEvent evt) {
